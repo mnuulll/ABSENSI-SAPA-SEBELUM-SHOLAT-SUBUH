@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Absensi Digital</title>
-    <link rel="icon" type="image/png" href="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png">
+    <link rel="icon" type="image/png" href="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/Logo.png">
     <style>
         body { font-family: Arial, sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
         input, select, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
         button { background: #87CEEB; color: black; border: none; cursor: pointer; font-weight: bold; }
         button:hover { background: #000080; color: white; }
+        .container-logo { display: flex; justify-content: center; align-items: center; height: 100vh; }
         .A { font-size: 10px; color: #A9A9A9; }
     </style>
 </head>
 <body>
 
 <div class="box">
+    <div class="container-logo">
+      <img src="Logo.png" alt="Logo">
+    </div>
     <h2>ABSENSI WALI KELAS SAPA SEBELUM SHOLAT SUBUH</h2>
     <form id="absenForm" action="https://script.google.com/macros/s/AKfycbz7fNKvLwfmsOfeoaY02zgX73dUUO3kvVXcGqgdZ8VDCPid2t6hvrNojVt8FZboj2sb/exec">
         <input type="text" name="Nama" placeholder="Masukkan Nama Lengkap" required>
