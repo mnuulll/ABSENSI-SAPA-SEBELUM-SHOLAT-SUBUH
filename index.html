@@ -20,7 +20,12 @@
     <div class="box">
         <h2>ABSENSI WALI KELAS SAPA SEBELUM SHOLAT SUBUH</h2>
         <form id="absenForm" action="https://script.google.com/macros/s/AKfycbz7fNKvLwfmsOfeoaY02zgX73dUUO3kvVXcGqgdZ8VDCPid2t6hvrNojVt8FZboj2sb/exec">
-            <input type="text" name="Nama" placeholder="Masukkan Nama Lengkap" required>
+            <select name="Nama" id="nama" required>
+              <option value="" disabled selected>-- Pilih Nama --</option>
+              <option value="MOHAMMAD RIZKY IMANULHAQ">Manul</option>
+              <option value="NAMA LENGKAP NIFIN">Nifin</option>
+              <option value="NAMA LENGKAP LAINNYA">Budi</option>
+            </select>
             <button type="submit" id="btnKirim">Kirim Absen</button>
         </form>
         <p id="pesan" style="color: green; font-weight: bold; margin-top: 15px;"></p>
