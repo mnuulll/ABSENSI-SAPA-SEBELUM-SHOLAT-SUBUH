@@ -6,69 +6,17 @@
     <title>Aplikasi Absensi Digital</title>
     <link rel="icon" type="image/png" href="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png">
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #f4f7f6; 
-            display: flex; 
-            flex-direction: column; /* Ini kunci agar logo dan kotak tersusun atas-bawah */
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-        }
-        
-        .logo-tengah {
-            width: 150px; /* Ukuran logo disesuaikan agar rapi */
-            margin-bottom: 20px; /* Jarak aman antara logo dan kotak */
-        }
-
-        .box { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 400px; 
-            text-align: center; 
-        }
-        
-        input, select, button { 
-            width: 100%; 
-            padding: 12px; 
-            margin: 10px 0; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            box-sizing: border-box; 
-            font-size: 16px; 
-        }
-        
-        button { 
-            background: #87CEEB; 
-            color: black; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: 0.3s; /* Tambahan animasi halus saat kursor diarahkan ke tombol */
-        }
-        
-        button:hover { 
-            background: #000080; 
-            color: white; 
-        }
-        
-        .A { 
-            font-size: 10px; 
-            color: #A9A9A9; 
-            margin-top: 15px;
-        }
+        body { font-family: Arial, sans-serif; background: #f4f7f6; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .logo-tengah { width: 100px; margin-bottom: 20px; }
+        .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        input, select, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        button { background: #87CEEB; color: black; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #000080; color: white; }
+        .A { font-size: 10px; color: #A9A9A9; margin-top: 15px; }
     </style>
 </head>
 <body>
-
-    <!-- Logo diletakkan tepat di luar dan di atas kotak -->
     <img src="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png" alt="Logo Sapa Subuh" class="logo-tengah">
-
-    <!-- Kotak Form Absensi -->
     <div class="box">
         <h2>ABSENSI WALI KELAS SAPA SEBELUM SHOLAT SUBUH</h2>
         <form id="absenForm" action="https://script.google.com/macros/s/AKfycbz7fNKvLwfmsOfeoaY02zgX73dUUO3kvVXcGqgdZ8VDCPid2t6hvrNojVt8FZboj2sb/exec">
