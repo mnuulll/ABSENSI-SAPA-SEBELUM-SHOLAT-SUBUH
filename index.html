@@ -6,56 +6,103 @@
     <title>Aplikasi Absensi Digital</title>
     <link rel="icon" type="image/png" href="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png">
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        input, select, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
-        button { background: #87CEEB; color: black; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background: #000080; color: white; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #f4f7f6; 
+            display: flex; 
+            flex-direction: column; /* Ini kunci agar logo dan kotak tersusun atas-bawah */
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        
         .logo-tengah {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 200px; /* Sesuaikan ukuran lebarnya */
-}
-        .A { font-size: 10px; color: #A9A9A9; }
+            width: 150px; /* Ukuran logo disesuaikan agar rapi */
+            margin-bottom: 20px; /* Jarak aman antara logo dan kotak */
+        }
+
+        .box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center; 
+        }
+        
+        input, select, button { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+        }
+        
+        button { 
+            background: #87CEEB; 
+            color: black; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s; /* Tambahan animasi halus saat kursor diarahkan ke tombol */
+        }
+        
+        button:hover { 
+            background: #000080; 
+            color: white; 
+        }
+        
+        .A { 
+            font-size: 10px; 
+            color: #A9A9A9; 
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
-<img src="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png" alt="Logo" class="logo-tengah">
-<div class="box">
-    <h2>ABSENSI WALI KELAS SAPA SEBELUM SHOLAT SUBUH</h2>
-    <form id="absenForm" action="https://script.google.com/macros/s/AKfycbz7fNKvLwfmsOfeoaY02zgX73dUUO3kvVXcGqgdZ8VDCPid2t6hvrNojVt8FZboj2sb/exec">
-        <input type="text" name="Nama" placeholder="Masukkan Nama Lengkap" required>
-        <button type="submit" id="btnKirim">Kirim Absen</button>
-    </form>
-    <p id="pesan" style="color: green; font-weight: bold; margin-top: 15px;"></p>
-    <div class="A">Create by Mnuulll</div>
-</div>
 
-<script>
-    const form = document.getElementById('absenForm');
-    const pesan = document.getElementById('pesan');
-    const tombol = document.getElementById('btnKirim');
+    <!-- Logo diletakkan tepat di luar dan di atas kotak -->
+    <img src="https://mnuulll.github.io/ABSENSI-SAPA-SEBELUM-SHOLAT-SUBUH/logo.png" alt="Logo Sapa Subuh" class="logo-tengah">
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        tombol.disabled = true;
-        tombol.innerText = "Mengirim...";
-        
-        fetch(form.action, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                pesan.innerText = "Absen berhasil tersimpan otomatis!";
-                form.reset();
-                tombol.disabled = false;
-                tombol.innerText = "Kirim Absen";
-            })
-            .catch(error => {
-                pesan.innerText = "Gagal mengirim data. Coba lagi!";
-                tombol.disabled = false;
-                tombol.innerText = "Kirim Absen";
-            });
-    });
-</script>
+    <!-- Kotak Form Absensi -->
+    <div class="box">
+        <h2>ABSENSI WALI KELAS SAPA SEBELUM SHOLAT SUBUH</h2>
+        <form id="absenForm" action="https://script.google.com/macros/s/AKfycbz7fNKvLwfmsOfeoaY02zgX73dUUO3kvVXcGqgdZ8VDCPid2t6hvrNojVt8FZboj2sb/exec">
+            <input type="text" name="Nama" placeholder="Masukkan Nama Lengkap" required>
+            <button type="submit" id="btnKirim">Kirim Absen</button>
+        </form>
+        <p id="pesan" style="color: green; font-weight: bold; margin-top: 15px;"></p>
+        <div class="A">Create by Mnuulll</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('absenForm');
+        const pesan = document.getElementById('pesan');
+        const tombol = document.getElementById('btnKirim');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            tombol.disabled = true;
+            tombol.innerText = "Mengirim...";
+            
+            fetch(form.action, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    pesan.innerText = "Absen berhasil tersimpan otomatis!";
+                    form.reset();
+                    tombol.disabled = false;
+                    tombol.innerText = "Kirim Absen";
+                })
+                .catch(error => {
+                    pesan.innerText = "Gagal mengirim data. Coba lagi!";
+                    tombol.disabled = false;
+                    tombol.innerText = "Kirim Absen";
+                });
+        });
+    </script>
 
 </body>
 </html>
