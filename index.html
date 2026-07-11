@@ -70,16 +70,71 @@
         const form = document.getElementById('absenForm');
         const pesan = document.getElementById('pesan');
         const tombol = document.getElementById('btnKirim');
+        const elemenDropdown = document.getElementById("nama");
+        const urlAppsScript = "https://script.google.com/macros/s/AKfycbxoZzUl9sHFj3pk7TBLzfWbxDnlFFhpLROZFH33yNKBGEX-KLzPkOd1yh75QtKmWRtm/exec";
 
+        // 1. OTOMATIS JALAN SAAT WEB DIBUKA DI HP MURID
+        window.onload = function() {
+            cekSiapaSudahAbsen();
+        };
+
+        function cekSiapaSudahAbsen() {
+            elemenDropdown.options[0].text = "⏳ Sedang mengecek data absen...";
+            elemenDropdown.disabled = true;
+
+            // PENTING: Ditambahkan redirect: "follow" agar tidak diblokir Google (CORS)
+            fetch(urlAppsScript, { method: "GET", redirect: "follow" })
+                .then(response => response.json())
+                .then(daftarAbsen => {
+                    elemenDropdown.disabled = false;
+                    elemenDropdown.options[0].text = "-- Pilih Nama --";
+
+                    // Cek satu-satu nama di dropdown
+                    for (var i = 0; i < elemenDropdown.options.length; i++) {
+                        var opsi = elemenDropdown.options[i];
+                        
+                        // Kalau value (misal: "NIFIN MELANI") ada di Spreadsheet -> Kunci!
+                        if (daftarAbsen.includes(opsi.value)) {
+                            kunciOpsi(opsi);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Gagal mengecek data:", error);
+                    elemenDropdown.disabled = false;
+                    elemenDropdown.options[0].text = "-- Pilih Nama --";
+                });
+        }
+
+        // Fungsi untuk merubah tampilan jadi abu-abu
+        function kunciOpsi(opsi) {
+            opsi.disabled = true;
+            opsi.style.backgroundColor = "#e0e0e0";
+            opsi.style.color = "#888888";
+            // Agar tulisannya jadi "Nifin (✔ Sudah Absen)"
+            if (!opsi.text.includes("(✔ Sudah Absen)")) {
+                opsi.text = opsi.text + " (✔ Sudah Absen)";
+            }
+        }
+
+        // 2. BERJALAN SAAT TOMBOL KIRIM DIKLIK
         form.addEventListener('submit', e => {
             e.preventDefault();
             tombol.disabled = true;
             tombol.innerText = "Mengirim...";
             
+            // Ambil opsi yang sedang dipilih oleh murid
+            const opsiTerpilih = elemenDropdown.options[elemenDropdown.selectedIndex];
+            
             fetch(form.action, { method: 'POST', body: new FormData(form)})
                 .then(response => {
                     pesan.innerText = "Absen berhasil tersimpan otomatis!";
-                    form.reset();
+                    
+                    // LANGSUNG KUNCI NAMA TERSEBUT DI LAYAR!
+                    kunciOpsi(opsiTerpilih);
+                    
+                    // Kembalikan ke pilihan default
+                    elemenDropdown.value = "";
                     tombol.disabled = false;
                     tombol.innerText = "Kirim Absen";
                 })
@@ -89,48 +144,6 @@
                     tombol.innerText = "Kirim Absen";
                 });
         });
-        // GANTI DENGAN URL WEB APP APPS SCRIPT KAMU YANG BERAWALAN https://script.google.com/...
-var urlAppsScript = "https://script.google.com/macros/s/AKfycbxoZzUl9sHFj3pk7TBLzfWbxDnlFFhpLROZFH33yNKBGEX-KLzPkOd1yh75QtKmWRtm/exec";
-
-// Berjalan otomatis pas web dibuka di HP murid
-window.onload = function() {
-  cekSiapaSudahAbsen();
-};
-
-function cekSiapaSudahAbsen() {
-  var elemenDropdown = document.getElementById("pilihNama");
-  
-  // Ubah teks opsi pertama jadi "Sedang mengecek data..." biar murid tahu webnya lagi loading
-  elemenDropdown.options[0].text = "⏳ Sedang mengecek data absen...";
-  elemenDropdown.disabled = true;
-
-  // Tanya ke Google Sheets siapa yang udah absen hari ini
-  fetch(urlAppsScript)
-    .then(response => response.json())
-    .then(daftarAbsen => {
-      // Buka kembali dropdown
-      elemenDropdown.disabled = false;
-      elemenDropdown.options[0].text = "-- Pilih Nama Kamu --";
-
-      // Cek satu-satu nama di dropdown
-      for (var i = 0; i < elemenDropdown.options.length; i++) {
-        var opsi = elemenDropdown.options[i];
-        
-        // Kalau nama tersebut ada di dalam daftar balasan dari Google Sheets -> Kunci!
-        if (daftarAbsen.includes(opsi.value)) {
-          opsi.disabled = true;
-          opsi.style.backgroundColor = "#e0e0e0";
-          opsi.style.color = "#888888";
-          opsi.text = opsi.value + " (✔ Sudah Absen)";
-        }
-      }
-    })
-    .catch(error => {
-      console.error("Gagal mengecek data:", error);
-      elemenDropdown.disabled = false;
-      elemenDropdown.options[0].text = "-- Pilih Nama Kamu --";
-    });
-}
     </script>
 
 </body>
