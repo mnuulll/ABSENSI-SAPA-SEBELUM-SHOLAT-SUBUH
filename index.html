@@ -89,6 +89,48 @@
                     tombol.innerText = "Kirim Absen";
                 });
         });
+        // GANTI DENGAN URL WEB APP APPS SCRIPT KAMU YANG BERAWALAN https://script.google.com/...
+var urlAppsScript = "MASUKKAN_URL_SCRIPT_KAMU_DISINI";
+
+// Berjalan otomatis pas web dibuka di HP murid
+window.onload = function() {
+  cekSiapaSudahAbsen();
+};
+
+function cekSiapaSudahAbsen() {
+  var elemenDropdown = document.getElementById("pilihNama");
+  
+  // Ubah teks opsi pertama jadi "Sedang mengecek data..." biar murid tahu webnya lagi loading
+  elemenDropdown.options[0].text = "⏳ Sedang mengecek data absen...";
+  elemenDropdown.disabled = true;
+
+  // Tanya ke Google Sheets siapa yang udah absen hari ini
+  fetch(urlAppsScript)
+    .then(response => response.json())
+    .then(daftarAbsen => {
+      // Buka kembali dropdown
+      elemenDropdown.disabled = false;
+      elemenDropdown.options[0].text = "-- Pilih Nama Kamu --";
+
+      // Cek satu-satu nama di dropdown
+      for (var i = 0; i < elemenDropdown.options.length; i++) {
+        var opsi = elemenDropdown.options[i];
+        
+        // Kalau nama tersebut ada di dalam daftar balasan dari Google Sheets -> Kunci!
+        if (daftarAbsen.includes(opsi.value)) {
+          opsi.disabled = true;
+          opsi.style.backgroundColor = "#e0e0e0";
+          opsi.style.color = "#888888";
+          opsi.text = opsi.value + " (✔ Sudah Absen)";
+        }
+      }
+    })
+    .catch(error => {
+      console.error("Gagal mengecek data:", error);
+      elemenDropdown.disabled = false;
+      elemenDropdown.options[0].text = "-- Pilih Nama Kamu --";
+    });
+}
     </script>
 
 </body>
